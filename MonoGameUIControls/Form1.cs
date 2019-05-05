@@ -30,6 +30,7 @@ namespace MonoGameUIControls
         //List<MGControl> UIControls;
         MGCheckBox newCheckbox;
         MGButton newButton;
+        MGPanel newPanel;
         List<MGControl> controls;
         public drawTest()
         {
@@ -43,6 +44,7 @@ namespace MonoGameUIControls
             //Console.WriteLine(Editor.Content.);
             Console.WriteLine(Editor.Content.ServiceProvider.ToString());
             Console.WriteLine(Editor.Content.RootDirectory.ToString());
+            controls = new List<MGControl>();
 
             newButton = new MGButton(Editor.Content.Load<Texture2D>("Button"), Editor.Content.Load<SpriteFont>("Font2"))
             {
@@ -50,14 +52,24 @@ namespace MonoGameUIControls
                 Text = "Random",
             };
             newButton.Click += clickhappened;
-            controls = new List<MGControl>();
             controls.Add(newButton);
+
+            newPanel = new MGPanel(Editor.Content.Load<Texture2D>("Pixel"), Editor.Content.Load<SpriteFont>("Font2"), new Microsoft.Xna.Framework.Point(256, 256))
+            {
+                Position = new Vector2(0, 0),
+                Draggable = true,
+                Outlined = true,
+            };
+            controls.Add(newPanel);
 
             newCheckbox = new MGCheckBox(Editor.Content.Load<Texture2D>("CheckBoxEmpty"), Editor.Content.Load<Texture2D>("Check"), Editor.Content.Load<Texture2D>("CheckBoxBackground"), Editor.Content.Load<SpriteFont>("Font2"))
             {
-                Position = new Vector2(350, 100),
+                Position = new Vector2(50, 50),
                 Text = "Look Ma",
+                Parent = newPanel,
             };
+
+
             newCheckbox.Click += checkHappened;
             controls.Add(newCheckbox);
         }
