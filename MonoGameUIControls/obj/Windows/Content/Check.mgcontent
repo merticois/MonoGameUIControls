@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <SourceFile>D:/GIT/MonoGameUIControls/MonoGameUIControls/Content/Check.png</SourceFile>
-  <SourceTime>2019-05-05T09:17:42.3732802-04:00</SourceTime>
+  <SourceTime>2019-05-05T11:10:16.5589035-04:00</SourceTime>
   <DestFile>D:/GIT/MonoGameUIControls/MonoGameUIControls/bin/Windows/Content/Check.xnb</DestFile>
-  <DestTime>2019-05-05T09:17:54.4636119-04:00</DestTime>
+  <DestTime>2019-05-05T12:30:11.9418174-04:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2018-09-23T17:55:52-04:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
