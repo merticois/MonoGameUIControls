@@ -25,3 +25,30 @@ d:\users\merticois\documents\visual studio 2015\Projects\MonoGameUIControls\Mono
 d:\users\merticois\documents\visual studio 2015\Projects\MonoGameUIControls\MonoGameUIControls\obj\Debug\MonoGameUIControls.pdb
 d:\users\merticois\documents\visual studio 2015\Projects\MonoGameUIControls\MonoGameUIControls\obj\Debug\MonoGameUIControls.Form1.resources
 D:\Users\Merticois\Documents\Visual Studio 2015\Projects\MonoGameUIControls\MonoGameUIControls\obj\Debug\MonoGameUIControls.csprojResolveAssemblyReference.cache
+D:\GIT\MonoGameUIControls\MonoGameUIControls\bin\Debug\MonoGameUIControls.exe.config
+D:\GIT\MonoGameUIControls\MonoGameUIControls\obj\Debug\MonoGameUIControls.exe
+D:\GIT\MonoGameUIControls\MonoGameUIControls\obj\Debug\MonoGameUIControls.pdb
+D:\GIT\MonoGameUIControls\MonoGameUIControls\bin\Debug\MonoGameUIControls.exe
+D:\GIT\MonoGameUIControls\MonoGameUIControls\bin\Debug\MonoGameUIControls.pdb
+D:\GIT\MonoGameUIControls\MonoGameUIControls\bin\Debug\MonoGame.Forms.DX.dll
+D:\GIT\MonoGameUIControls\MonoGameUIControls\bin\Debug\MonoGame.Framework.dll
+D:\GIT\MonoGameUIControls\MonoGameUIControls\bin\Debug\SharpDX.Direct3D11.dll
+D:\GIT\MonoGameUIControls\MonoGameUIControls\bin\Debug\SharpDX.dll
+D:\GIT\MonoGameUIControls\MonoGameUIControls\bin\Debug\SharpDX.DXGI.dll
+D:\GIT\MonoGameUIControls\MonoGameUIControls\bin\Debug\SharpDX.MediaFoundation.dll
+D:\GIT\MonoGameUIControls\MonoGameUIControls\bin\Debug\SharpDX.Direct2D1.dll
+D:\GIT\MonoGameUIControls\MonoGameUIControls\bin\Debug\SharpDX.XAudio2.dll
+D:\GIT\MonoGameUIControls\MonoGameUIControls\bin\Debug\SharpDX.XInput.dll
+D:\GIT\MonoGameUIControls\MonoGameUIControls\bin\Debug\MonoGame.Forms.DX.xml
+D:\GIT\MonoGameUIControls\MonoGameUIControls\bin\Debug\MonoGame.Framework.xml
+D:\GIT\MonoGameUIControls\MonoGameUIControls\bin\Debug\SharpDX.xml
+D:\GIT\MonoGameUIControls\MonoGameUIControls\bin\Debug\SharpDX.Direct3D11.xml
+D:\GIT\MonoGameUIControls\MonoGameUIControls\bin\Debug\SharpDX.DXGI.xml
+D:\GIT\MonoGameUIControls\MonoGameUIControls\bin\Debug\SharpDX.MediaFoundation.xml
+D:\GIT\MonoGameUIControls\MonoGameUIControls\bin\Debug\SharpDX.Direct2D1.xml
+D:\GIT\MonoGameUIControls\MonoGameUIControls\bin\Debug\SharpDX.XAudio2.xml
+D:\GIT\MonoGameUIControls\MonoGameUIControls\bin\Debug\SharpDX.XInput.xml
+D:\GIT\MonoGameUIControls\MonoGameUIControls\obj\Debug\MonoGameUIControls.csprojResolveAssemblyReference.cache
+D:\GIT\MonoGameUIControls\MonoGameUIControls\obj\Debug\MonoGameUIControls.Form1.resources
+D:\GIT\MonoGameUIControls\MonoGameUIControls\obj\Debug\MonoGameUIControls.Properties.Resources.resources
+D:\GIT\MonoGameUIControls\MonoGameUIControls\obj\Debug\MonoGameUIControls.csproj.GenerateResource.Cache

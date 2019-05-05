@@ -11,6 +11,14 @@ namespace MonoGameUIControls
 {
     public abstract class MGControl
     {
+        public bool canBeParent
+        {
+            get;
+            protected set;
+        }
+
+        public Vector2 Position { get; set; }
+
         public abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch);
         public abstract void Update(GameTime gameTime);
     }
@@ -23,6 +31,7 @@ namespace MonoGameUIControls
         private bool _isHovering;
         private MouseState _previousMouse;
         private Texture2D _texture;
+        private MGControl _parent;
         #endregion
 
         #region Properties
@@ -32,13 +41,38 @@ namespace MonoGameUIControls
 
         public Color PenColour { get; set; }
 
-        public Vector2 Position { get; set; }
+        
+
+        public bool Enabled { get; set; }
+
+        public MGControl Parent
+        {
+            get
+            {
+                if (_parent != null)
+                    return _parent;
+                else
+                    return null;
+            }
+            set
+            {
+                if(value.canBeParent)
+                {
+                    _parent = value;
+                }
+            }
+        }
 
         public Rectangle Rectangle
         {
             get
             {
-                return new Rectangle((int)Position.X, (int)Position.Y, _texture.Width, _texture.Height);
+                Vector2 parentoffset = new Vector2(0, 0);
+                if (Parent != null)
+                {
+                    parentoffset = Parent.Position;
+                }
+                return new Rectangle((int)(Position.X + parentoffset.X), (int)(Position.Y + parentoffset.Y), _texture.Width, _texture.Height);
             }
         }
 
@@ -50,25 +84,33 @@ namespace MonoGameUIControls
         public MGButton(Texture2D texture, SpriteFont font)
         {
             _texture = texture;
-
+            
             _font = font;
-
+            Enabled = true;
             PenColour = Color.Black;
+            canBeParent = false;
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            Vector2 parentoffset = new Vector2(0, 0);
+            if (Parent != null)
+            {
+                parentoffset = Parent.Position;
+            }
             var colour = Color.White;
 
-            if (_isHovering)
+            if (Enabled == false)
+                colour = Color.Gray;
+            else if (_isHovering)
                 colour = Color.Gray;
 
             spriteBatch.Draw(_texture, Rectangle, colour);
 
             if (!string.IsNullOrEmpty(Text))
             {
-                var x = (Rectangle.X + (Rectangle.Width / 2)) - (_font.MeasureString(Text).X / 2);
-                var y = (Rectangle.Y + (Rectangle.Height / 2)) - (_font.MeasureString(Text).Y / 2);
+                var x = (Rectangle.X + (Rectangle.Width / 2)) - (_font.MeasureString(Text).X / 2) + parentoffset.X;
+                var y = (Rectangle.Y + (Rectangle.Height / 2)) - (_font.MeasureString(Text).Y / 2) + parentoffset.Y;
 
                 spriteBatch.DrawString(_font, Text, new Vector2(x, y), PenColour);
             }
@@ -87,7 +129,7 @@ namespace MonoGameUIControls
             {
                 _isHovering = true;
 
-                if (_currentMouse.LeftButton == ButtonState.Released && _previousMouse.LeftButton == ButtonState.Pressed)
+                if (_currentMouse.LeftButton == ButtonState.Released && _previousMouse.LeftButton == ButtonState.Pressed && Enabled)
                 {
                     Click?.Invoke(this, new EventArgs());
                 }
@@ -99,17 +141,158 @@ namespace MonoGameUIControls
 
     public class MGCheckBox : MGControl
     {
+        #region Fields
+        private MouseState _currentMouse;
+        private SpriteFont _font;
+        private bool _isHovering;
+        private MouseState _previousMouse;
+        private Texture2D _check;
+        private Texture2D _box;
+        private Texture2D _texture;
+        private MGControl _parent;
+        #endregion
+
+        #region Properties
+        public event EventHandler Click;
+
+        public bool Clicked { get; private set; }
+
+        public Color PenColour { get; set; }
+
+        public bool Checked { get; set; }
+
+        public bool Enabled { get; set; }
+
+        public Rectangle Rectangle
+        {
+            get
+            {
+                Vector2 parentoffset = new Vector2(0, 0);
+                if (Parent != null)
+                {
+                    parentoffset = Parent.Position;
+                }
+                return new Rectangle((int)(Position.X + parentoffset.X), (int)(Position.Y + parentoffset.Y), _texture.Width, _texture.Height);
+            }
+        }
+
+        public MGControl Parent
+        {
+            get
+            {
+                if (_parent != null)
+                    return _parent;
+                else
+                    return null;
+            }
+            set
+            {
+                if (value.canBeParent)
+                {
+                    _parent = value;
+                }
+            }
+        }
+
+        public Rectangle CheckBoxBounds
+        {
+            get
+            {
+                Vector2 parentoffset = new Vector2(0, 0);
+                if (Parent != null)
+                {
+                    parentoffset = Parent.Position;
+                }
+                if (Text != null)
+                {
+                    return new Rectangle((int)(Position.X + parentoffset.X), (int)(Position.Y + parentoffset.Y), _texture.Width + 2 + (int)_font.MeasureString(Text).X, _texture.Height);
+                }
+                else
+                {
+                    return new Rectangle((int)(Position.X + parentoffset.X), (int)(Position.Y + parentoffset.Y), _texture.Width, _texture.Height);
+                }
+            }
+        }
+
+        public string Text { get; set; }
+        #endregion
+
+        #region Methods
+
+        public MGCheckBox(Texture2D box, Texture2D check, Texture2D texture, SpriteFont font)
+        {
+            _box = box;
+            _check = check;
+            _texture = texture;
+            _font = font;
+            Checked = false;
+            Enabled = true;
+            PenColour = Color.Black;
+            canBeParent = false;
+        }
+
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            var colour = Color.Black;
+            Vector2 parentoffset = new Vector2(0,0);
+            if (Parent != null)
+            {
+                parentoffset = Parent.Position;
+            }
+
+
+            if (Enabled == false)
+                colour = Color.Gray;
+            else if (_isHovering)
+                colour = new Color(0,120,215,255);
+
+            spriteBatch.Draw(_texture, Rectangle, Color.White);
+
+            spriteBatch.Draw(_box, Rectangle, colour);
+
+            if(Checked)
+                spriteBatch.Draw(_check, Rectangle, colour);
+
+            if (!string.IsNullOrEmpty(Text))
+            {
+                var x = (Rectangle.X + Rectangle.Width + 2) + parentoffset.X;
+                var y = (Rectangle.Y + Rectangle.Height / 2) - (_font.MeasureString(Text).Y / 2) + parentoffset.Y;
+
+                spriteBatch.DrawString(_font, Text, new Vector2(x, y), PenColour);
+            }
         }
 
         public override void Update(GameTime gameTime)
         {
+            _previousMouse = _currentMouse;
+            _currentMouse = Mouse.GetState();
+
+            var mouseRectangle = new Rectangle(_currentMouse.X, _currentMouse.Y, 1, 1);
+
+            _isHovering = false;
+
+            if (mouseRectangle.Intersects(CheckBoxBounds))
+            {
+                _isHovering = true;
+
+                if (_currentMouse.LeftButton == ButtonState.Released && _previousMouse.LeftButton == ButtonState.Pressed && Enabled)
+                {
+                    Checked = !Checked;
+                    Click?.Invoke(this, new EventArgs());
+                }
+            }
         }
+
+        #endregion
     }
 
     public class MGTextBox : MGControl
     {
+        public MGTextBox()
+        {
+            canBeParent = false;
+        }
+
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
         }
@@ -121,6 +304,10 @@ namespace MonoGameUIControls
 
     public class MGPanel : MGControl
     {
+        public MGPanel()
+        {
+            canBeParent = true;
+        }
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
         }

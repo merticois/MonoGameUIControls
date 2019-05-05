@@ -28,6 +28,8 @@ namespace MonoGameUIControls
     {
         string WelcomeMessage = "Hello MonoGame.Forms!";
         //List<MGControl> UIControls;
+        MGCheckBox newCheckbox;
+        MGButton newButton;
         List<MGControl> controls;
         public drawTest()
         {
@@ -36,11 +38,13 @@ namespace MonoGameUIControls
         protected override void Initialize()
         {
             base.Initialize();
+            Editor.DisplayBackColor = Microsoft.Xna.Framework.Color.White;
+            //Editor.graphics.Viewport.
             //Console.WriteLine(Editor.Content.);
             Console.WriteLine(Editor.Content.ServiceProvider.ToString());
             Console.WriteLine(Editor.Content.RootDirectory.ToString());
 
-            MGButton newButton = new MGButton(Editor.Content.Load<Texture2D>("Button"), Editor.Content.Load<SpriteFont>("Font2"))
+            newButton = new MGButton(Editor.Content.Load<Texture2D>("Button"), Editor.Content.Load<SpriteFont>("Font2"))
             {
                 Position = new Vector2(350, 200),
                 Text = "Random",
@@ -48,11 +52,20 @@ namespace MonoGameUIControls
             newButton.Click += clickhappened;
             controls = new List<MGControl>();
             controls.Add(newButton);
+
+            newCheckbox = new MGCheckBox(Editor.Content.Load<Texture2D>("CheckBoxEmpty"), Editor.Content.Load<Texture2D>("Check"), Editor.Content.Load<Texture2D>("CheckBoxBackground"), Editor.Content.Load<SpriteFont>("Font2"))
+            {
+                Position = new Vector2(350, 100),
+                Text = "Look Ma",
+            };
+            newCheckbox.Click += checkHappened;
+            controls.Add(newCheckbox);
         }
 
         protected override void Draw()
         {
             base.Draw();
+            Editor.spriteBatch.GraphicsDevice.Clear(Microsoft.Xna.Framework.Color.White);
             //if(sprite == null)
             //{
             //  sprite = Editor.Content.Load<Texture2D>("Content/Button");
@@ -82,8 +95,16 @@ namespace MonoGameUIControls
 
         public void clickhappened(object sender, EventArgs e)
         {
-            
+            newCheckbox.Enabled = !newCheckbox.Enabled;
             Console.WriteLine("Click: "+ Editor.GameTime.ElapsedGameTime.ToString());
+        }
+
+        public void checkHappened(object sender, EventArgs e)
+        {
+            if (((MGCheckBox)sender).Checked)
+                ((MGCheckBox)sender).Text = "I dun been clicked";
+            else
+                ((MGCheckBox)sender).Text = "Look Ma";
         }
     }
 }
