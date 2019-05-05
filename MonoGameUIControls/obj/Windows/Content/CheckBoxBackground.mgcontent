@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>D:/GIT/MonoGameUIControls/MonoGameUIControls/Content/Button.png</SourceFile>
-  <SourceTime>2019-05-04T17:39:19.9941363-04:00</SourceTime>
-  <DestFile>D:/GIT/MonoGameUIControls/MonoGameUIControls/bin/Windows/Content/Button.xnb</DestFile>
-  <DestTime>2019-05-05T09:17:54.4543746-04:00</DestTime>
+  <SourceFile>D:/GIT/MonoGameUIControls/MonoGameUIControls/Content/CheckBoxBackground.png</SourceFile>
+  <SourceTime>2019-05-05T08:26:40.2590945-04:00</SourceTime>
+  <DestFile>D:/GIT/MonoGameUIControls/MonoGameUIControls/bin/Windows/Content/CheckBoxBackground.xnb</DestFile>
+  <DestTime>2019-05-05T09:17:54.4661136-04:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2018-09-23T17:55:52-04:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

@@ -4,10 +4,16 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
-    <File>D:/Users/Merticois/Documents/Visual Studio 2015/Projects/MonoGameUIControls/MonoGameUIControls/Content/Button.png</File>
-    <File>D:/Users/Merticois/Documents/Visual Studio 2015/Projects/MonoGameUIControls/MonoGameUIControls/Font2.spritefont</File>
+    <File>D:/GIT/MonoGameUIControls/MonoGameUIControls/Content/Button.png</File>
+    <File>D:/GIT/MonoGameUIControls/MonoGameUIControls/Content/Check.png</File>
+    <File>D:/GIT/MonoGameUIControls/MonoGameUIControls/Content/CheckBoxBackground.png</File>
+    <File>D:/GIT/MonoGameUIControls/MonoGameUIControls/Content/CheckBoxEmpty.png</File>
+    <File>D:/GIT/MonoGameUIControls/MonoGameUIControls/Font2.spritefont</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
   </DestFiles>

@@ -36,6 +36,8 @@
             this.drawTest1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.drawTest1.BackColor = System.Drawing.Color.White;
+            this.drawTest1.ForeColor = System.Drawing.Color.Ivory;
             this.drawTest1.Location = new System.Drawing.Point(12, 12);
             this.drawTest1.MouseHoverUpdatesOnly = false;
             this.drawTest1.Name = "drawTest1";
