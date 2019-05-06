@@ -256,7 +256,7 @@ namespace MonoGameUIControls
             if (!string.IsNullOrEmpty(Text))
             {
                 var x = (Rectangle.X + Rectangle.Width + 2);
-                var y = (Rectangle.Y + Rectangle.Height / 2) - (_font.MeasureString(Text).Y / 2);
+                var y = (Rectangle.Y + Rectangle.Height / 2) - (_font.MeasureString(Text).Y / 2)+1;
 
                 spriteBatch.DrawString(_font, Text, new Vector2(x, y), PenColour);
             }
@@ -307,13 +307,14 @@ namespace MonoGameUIControls
         #region Fields
         private MouseState _currentMouse;
         private SpriteFont _font;
-        private bool _isHovering;
+        //private bool _isHovering;
         private MouseState _previousMouse;
         private Texture2D _texture;
         private MGControl _parent;
         private Point _size;
         private bool _Outlined;
         private bool _Draggable;
+        private int _outlineThickness;
         #endregion
 
         #region Properties
@@ -323,9 +324,21 @@ namespace MonoGameUIControls
 
         public Color PenColour { get; set; }
 
-
+        public Color BackColour { get; set; }
 
         public bool Enabled { get; set; }
+
+        public int OutlineThickness
+        {
+            get
+            {
+                return _outlineThickness;
+            }
+            set
+            {
+                _outlineThickness = Math.Min(Math.Max(value, 1), 5);
+            }
+        }
 
         public MGControl Parent
         {
@@ -398,7 +411,7 @@ namespace MonoGameUIControls
 
         #region Methods
 
-        public MGPanel(Texture2D texture, SpriteFont font, int width, int height)
+        public MGPanel(Texture2D texture, SpriteFont font, int width, int height, Color backcolour)
         {
             _texture = texture;
             Width = width;
@@ -406,16 +419,18 @@ namespace MonoGameUIControls
             _font = font;
             Enabled = true;
             PenColour = Color.Black;
+            BackColour = backcolour;
             canBeParent = false;
         }
 
-        public MGPanel(Texture2D texture, SpriteFont font, Point size)
+        public MGPanel(Texture2D texture, SpriteFont font, Point size, Color backcolour)
         {
             _texture = texture;
             _size = size;
             _font = font;
             Enabled = true;
             PenColour = Color.Black;
+            BackColour = backcolour;
             canBeParent = true;
         }
 
@@ -433,14 +448,14 @@ namespace MonoGameUIControls
             //else if (_isHovering)
             //    colour = Color.Gray;
 
-            spriteBatch.Draw(_texture, Rectangle, colour);
+            spriteBatch.Draw(_texture, Rectangle, BackColour);
 
             if(_Outlined)
             {
-                spriteBatch.Draw(_texture, new Rectangle((int)Position.X, (int)Position.Y, Rectangle.Width, 2), Color.Black);
-                spriteBatch.Draw(_texture, new Rectangle((int)Position.X, (int)Position.Y, 2, Rectangle.Height), Color.Black);
-                spriteBatch.Draw(_texture, new Rectangle((int)Position.X, (int)Position.Y+Rectangle.Height-2, Rectangle.Width, 2), Color.Black);
-                spriteBatch.Draw(_texture, new Rectangle((int)Position.X+Rectangle.Width-2, (int)Position.Y, 2, Rectangle.Height), Color.Black);
+                spriteBatch.Draw(_texture, new Rectangle((int)Position.X, (int)Position.Y, Rectangle.Width, OutlineThickness), Color.Black);
+                spriteBatch.Draw(_texture, new Rectangle((int)Position.X, (int)Position.Y, OutlineThickness, Rectangle.Height), Color.Black);
+                spriteBatch.Draw(_texture, new Rectangle((int)Position.X, (int)Position.Y+Rectangle.Height- OutlineThickness, Rectangle.Width, OutlineThickness), Color.Black);
+                spriteBatch.Draw(_texture, new Rectangle((int)Position.X+Rectangle.Width- OutlineThickness, (int)Position.Y, OutlineThickness, Rectangle.Height), Color.Black);
             }
 
             //if (!string.IsNullOrEmpty(Text))
@@ -459,11 +474,11 @@ namespace MonoGameUIControls
 
             var mouseRectangle = new Rectangle(_currentMouse.X, _currentMouse.Y, 1, 1);
 
-            _isHovering = false;
+            //_isHovering = false;
 
             if (mouseRectangle.Intersects(Rectangle))
             {
-                _isHovering = true;
+                //_isHovering = true;
 
                 if (_currentMouse.LeftButton == ButtonState.Released && _previousMouse.LeftButton == ButtonState.Pressed && Enabled)
                 {
@@ -524,4 +539,114 @@ namespace MonoGameUIControls
         }
     }
 
+    public class MGLabel : MGControl
+    {
+        #region Fields
+        //private MouseState _currentMouse;
+        private SpriteFont _font;
+        //private bool _isHovering;
+        //private MouseState _previousMouse;
+        private MGControl _parent;
+        #endregion
+
+        #region Properties
+        //public event EventHandler Click;
+
+        public bool Clicked { get; private set; }
+
+        public Color PenColour { get; set; }
+
+
+
+        public bool Enabled { get; set; }
+
+        public MGControl Parent
+        {
+            get
+            {
+                if (_parent != null)
+                    return _parent;
+                else
+                    return null;
+            }
+            set
+            {
+                if (value.canBeParent)
+                {
+                    _parent = value;
+                }
+            }
+        }
+
+        //public Rectangle Rectangle
+        //{
+        //    get
+        //    {
+        //        Vector2 parentoffset = new Vector2(0, 0);
+        //        if (Parent != null)
+        //        {
+        //            parentoffset = Parent.Position;
+        //        }
+        //        return new Rectangle((int)(Position.X + parentoffset.X), (int)(Position.Y + parentoffset.Y), _texture.Width, _texture.Height);
+        //    }
+        //}
+
+        public string Text { get; set; }
+        #endregion
+
+        #region Methods
+
+        public MGLabel(SpriteFont font)
+        {
+            _font = font;
+            Enabled = true;
+            PenColour = Color.Black;
+            canBeParent = false;
+        }
+
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        {
+            Vector2 parentoffset = new Vector2(0, 0);
+            if (Parent != null)
+            {
+                parentoffset = Parent.Position;
+            }
+            var colour = Color.White;
+
+            //if (Enabled == false)
+            //    colour = Color.Gray;
+            //else if (_isHovering)
+            //    colour = Color.Gray;
+
+            if (!string.IsNullOrEmpty(Text))
+            {
+                var x = parentoffset.X + Position.X;
+                var y = parentoffset.Y + Position.Y;
+
+                spriteBatch.DrawString(_font, Text, new Vector2(x, y), PenColour);
+            }
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            //_previousMouse = _currentMouse;
+            //_currentMouse = Mouse.GetState();
+
+            //var mouseRectangle = new Rectangle(_currentMouse.X, _currentMouse.Y, 1, 1);
+
+            //_isHovering = false;
+
+            //if (mouseRectangle.Intersects(Rectangle))
+            //{
+            //    _isHovering = true;
+
+            //    if (_currentMouse.LeftButton == ButtonState.Released && _previousMouse.LeftButton == ButtonState.Pressed && Enabled)
+            //    {
+            //        Click?.Invoke(this, new EventArgs());
+            //    }
+            //}
+        }
+
+        #endregion
+    }
 }

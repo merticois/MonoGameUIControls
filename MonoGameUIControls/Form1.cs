@@ -31,6 +31,7 @@ namespace MonoGameUIControls
         MGCheckBox newCheckbox;
         MGButton newButton;
         MGPanel newPanel;
+        MGLabel newLabel;
         List<MGControl> controls;
         public drawTest()
         {
@@ -54,11 +55,12 @@ namespace MonoGameUIControls
             newButton.Click += clickhappened;
             controls.Add(newButton);
 
-            newPanel = new MGPanel(Editor.Content.Load<Texture2D>("Pixel"), Editor.Content.Load<SpriteFont>("Font2"), new Microsoft.Xna.Framework.Point(256, 256))
+            newPanel = new MGPanel(Editor.Content.Load<Texture2D>("Pixel"), Editor.Content.Load<SpriteFont>("Font2"), new Microsoft.Xna.Framework.Point(256, 256), Microsoft.Xna.Framework.Color.BurlyWood)
             {
                 Position = new Vector2(0, 0),
                 Draggable = true,
                 Outlined = true,
+                OutlineThickness = 1,
             };
             controls.Add(newPanel);
 
@@ -68,10 +70,16 @@ namespace MonoGameUIControls
                 Text = "Look Ma",
                 Parent = newPanel,
             };
-
-
             newCheckbox.Click += checkHappened;
             controls.Add(newCheckbox);
+
+            newLabel = new MGLabel(Editor.Content.Load<SpriteFont>("Font2"))
+            {
+                Position = new Vector2(50, 80),
+                Text = "I'm a label!",
+                Parent = newPanel,
+            };
+            controls.Add(newLabel);
         }
 
         protected override void Draw()
@@ -107,7 +115,15 @@ namespace MonoGameUIControls
 
         public void clickhappened(object sender, EventArgs e)
         {
-            newCheckbox.Enabled = !newCheckbox.Enabled;
+            //newCheckbox.Enabled = !newCheckbox.Enabled;
+            if (newCheckbox.Checked)
+            {
+                newPanel.OutlineThickness = newPanel.OutlineThickness + 1;
+            }
+            else
+            {
+                newPanel.OutlineThickness = newPanel.OutlineThickness - 1;
+            }
             Console.WriteLine("Click: "+ Editor.GameTime.ElapsedGameTime.ToString());
         }
 
